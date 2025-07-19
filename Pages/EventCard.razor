@@ -1,0 +1,24 @@
+@using System.ComponentModel.DataAnnotations
+
+<div class="event-card" style="border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; border-radius: 8px;">
+    <h3>@EventTitle</h3>
+    <p><strong>Date:</strong> @EventDate.ToShortDateString()</p>
+    <p><strong>Location:</strong> @Location</p>
+    <p><strong>Description:</strong> @Description</p>
+
+    <input type="text" @bind="EventTitle" placeholder="Edit Event Title" style="width: 100%; padding: 8px; margin-top: 10px;" />
+</div>
+
+@code {
+    [Parameter]
+    public string EventTitle { get; set; } = "Sample Event";
+
+    [Parameter]
+    public DateTime EventDate { get; set; } = DateTime.Today;
+
+    [Parameter]
+    public string Location { get; set; } = "Unknown";
+
+    [Parameter]
+    public string Description { get; set; } = "Description here";
+}

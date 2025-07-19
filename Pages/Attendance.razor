@@ -1,0 +1,23 @@
+@page "/attendance"
+
+<h2>Attendance Tracker</h2>
+
+<p>Mark your attendance for the event:</p>
+
+<button @onclick="MarkPresent" disabled="@isPresent" style="padding: 10px 15px;">
+    @(isPresent ? "Attendance Marked" : "Mark Present")
+</button>
+
+@if (isPresent)
+{
+    <p style="color:green; margin-top: 10px;">You have marked your attendance. Thank you!</p>
+}
+
+@code {
+    private bool isPresent = false;
+
+    private void MarkPresent()
+    {
+        isPresent = true;
+    }
+}

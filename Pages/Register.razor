@@ -1,0 +1,57 @@
+@page "/register"
+@using System.ComponentModel.DataAnnotations
+
+<h2>Event Registration</h2>
+
+<EditForm Model="@registration" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Name:</label><br />
+        <InputText @bind-Value="registration.Name" style="width: 300px; padding: 5px;" />
+        <ValidationMessage For="@(() => registration.Name)" />
+    </div>
+
+    <div>
+        <label>Email:</label><br />
+        <InputText @bind-Value="registration.Email" style="width: 300px; padding: 5px;" />
+        <ValidationMessage For="@(() => registration.Email)" />
+    </div>
+
+    <div>
+        <label>Age:</label><br />
+        <InputNumber @bind-Value="registration.Age" style="width: 100px; padding: 5px;" />
+        <ValidationMessage For="@(() => registration.Age)" />
+    </div>
+
+    <button type="submit" style="margin-top: 10px;">Register</button>
+</EditForm>
+
+@if (successMessage != null)
+{
+    <p style="color:green; margin-top: 10px;">@successMessage</p>
+}
+
+@code {
+    private RegistrationModel registration = new();
+    private string? successMessage;
+
+    private void HandleValidSubmit()
+    {
+        successMessage = $"Thank you, {registration.Name}, for registering!";
+    }
+
+    public class RegistrationModel
+    {
+        [Required(ErrorMessage = "Name is required")]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string? Email { get; set; }
+
+        [Range(18, 100, ErrorMessage = "Age must be between 18 and 100")]
+        public int? Age { get; set; }
+    }
+}
